@@ -6,7 +6,8 @@ class Login extends BaseController
 {
     public function index()
     {
-        echo view('login_view');
+        $info['title'] = 'Login';
+        return view('login_view', $info);
        
     }
 
@@ -16,10 +17,10 @@ class Login extends BaseController
 
         if ($this->request->getMethod() === 'post') 
         {
-            $userModel = new \App\Models\UsersModel();
+            $usersModel = new \App\Models\UsersModel();
 
-                $email = $this->request->getVar('inp_email');
-                $password = $this->request->getVar('inp_pass');
+                $email = $this->request->getPost()['email'];
+                $password = $this->request->getPost()['password'];
 
                 if($email == '' || $password == '')
                 {
@@ -27,11 +28,11 @@ class Login extends BaseController
                     return redirect()->to('/login');
                 }
 
-                $data = $userModel->where('email_user', $email)->first();
+                $data = $usersModel->where('email', $email)->first();
 
             if($data) 
             {
-                $pass = $data['pass_user'];
+                $pass = $data['password'];
                 $verify_pass = password_verify($password, $pass);
 
                 if ($verify_pass) 
@@ -39,16 +40,18 @@ class Login extends BaseController
 
                     $new_data = [
 
-                        'id_user' => $data['id_user'],
-                        'name_user' => $data['name_user'],
-                        'email_user' => $data['email_user'],
-                        'level_user' => $data['level_user'],
-                        'logged' => TRUE
+                        'id' => $data['id'],
+                        'email' => $data['email'],
+                        'password' => $data['password'],
+                        'name' => $data['name'],
+                        'school' => $data['school'],
+                        'logged' => TRUE,
+                        'level' => $data['level']
 
                     ];
 
                     $session->set($new_data);
-                    return redirect()->to('/dashboard');
+                    return redirect()->to('/library');
                 }
                 else
                 {
@@ -73,9 +76,9 @@ class Login extends BaseController
         $new_data = [
 
             'id' => null,
-            'name_user' => null,
-            'email_user' => null,
-            'level_user' => null,
+            'email' => null,
+            'password' => null,
+            'name' => null,
             'logged' => FALSE
 
         ];
