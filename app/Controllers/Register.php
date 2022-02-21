@@ -6,6 +6,10 @@ use Config\App;
 
 class Register extends BaseController
 {
+    
+    /**
+     * Método inicial para exibir o form de cadastro
+     */
     public function index()
     {
         
@@ -15,6 +19,10 @@ class Register extends BaseController
         return view('register_view',$info);
     }
 
+    
+    /**
+     * Método responsável por cadastrar usuários
+     */
     public function register()
     {
         $session = session();

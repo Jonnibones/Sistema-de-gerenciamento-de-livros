@@ -4,6 +4,10 @@ namespace App\Controllers;
 
 class Login extends BaseController
 {
+    
+    /**
+     * Método inicial para retornar o form de login
+     */
     public function index()
     {
         $info['title'] = 'Login';
@@ -11,6 +15,10 @@ class Login extends BaseController
        
     }
 
+    
+    /**
+     * Método de autenticação para acesso do sistema
+     */
     public function auth()
     {
         $session = session(); 
@@ -69,6 +77,10 @@ class Login extends BaseController
         }
     }
 
+    
+    /**
+     * Método para deslogar do sistema
+     */
     public function logoff()
     {
         $session = session();
