@@ -1,56 +1,64 @@
-# CodeIgniter 4 Framework
+# Sistema de Gerenciamento de livros em php
 
-## What is CodeIgniter?
+Código fonte de um sistema de gerenciamento de livros em php\
+Frameworks: Codeigniter 4, Bootstrap\
+Plugins: Datatables\
+API's: Sweet Alert
 
-CodeIgniter is a PHP full-stack web framework that is light, fast, flexible and secure.
-More information can be found at the [official site](http://codeigniter.com).
+## Banco de dados
 
-This repository holds the distributable version of the framework,
-including the user guide. It has been built from the
-[development repository](https://github.com/codeigniter4/CodeIgniter4).
+Crie um banco de dados(de prefêrencia com o nome: db_library) e execute as instruções SQLs abaixo para criação das tabelas:
 
-More information about the plans for version 4 can be found in [the announcement](http://forum.codeigniter.com/thread-62615.html) on the forums.
+--
+-- Estrutura para tabela `tb_books`
+--
 
-The user guide corresponding to this version of the framework can be found
-[here](https://codeigniter4.github.io/userguide/).
+DROP TABLE IF EXISTS `tb_books`;
+CREATE TABLE IF NOT EXISTS `tb_books` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(200) NOT NULL,
+  `pub_company` varchar(200) NOT NULL,
+  `description` longtext NOT NULL,
+  `avaliable` tinyint(1) NOT NULL DEFAULT '1',
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
+-- --------------------------------------------------------
 
-## Important Change with index.php
+--
+-- Estrutura para tabela `tb_reservation`
+--
 
-`index.php` is no longer in the root of the project! It has been moved inside the *public* folder,
-for better security and separation of components.
+DROP TABLE IF EXISTS `tb_reservation`;
+CREATE TABLE IF NOT EXISTS `tb_reservation` (
+  `id_reservation` int(11) NOT NULL AUTO_INCREMENT,
+  `id_user` int(11) NOT NULL,
+  `id_book` int(11) NOT NULL,
+  `date` date NOT NULL,
+  PRIMARY KEY (`id_reservation`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-This means that you should configure your web server to "point" to your project's *public* folder, and
-not to the project root. A better practice would be to configure a virtual host to point there. A poor practice would be to point your web server to the project root and expect to enter *public/...*, as the rest of your logic and the
-framework are exposed.
+-- --------------------------------------------------------
 
-**Please** read the user guide for a better explanation of how CI4 works!
+--
+-- Estrutura para tabela `tb_users`
+--
 
-## Repository Management
+DROP TABLE IF EXISTS `tb_users`;
+CREATE TABLE IF NOT EXISTS `tb_users` (
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `email` varchar(200) NOT NULL,
+  `password` varchar(200) NOT NULL,
+  `name` varchar(200) NOT NULL,
+  `school` varchar(100) DEFAULT NULL,
+  `level` int(4) NOT NULL,
+  `logged` tinyint(4) NOT NULL,
+  PRIMARY KEY (`id`)
+) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
-We use GitHub issues, in our main repository, to track **BUGS** and to track approved **DEVELOPMENT** work packages.
-We use our [forum](http://forum.codeigniter.com) to provide SUPPORT and to discuss
-FEATURE REQUESTS.
+## Configuração
 
-This repository is a "distribution" one, built by our release preparation script.
-Problems with it can be raised on our forum, or as issues in the main repository.
-
-## Contributing
-
-We welcome contributions from the community.
-
-Please read the [*Contributing to CodeIgniter*](https://github.com/codeigniter4/CodeIgniter4/blob/develop/CONTRIBUTING.md) section in the development repository.
-
-## Server Requirements
-
-PHP version 7.3 or higher is required, with the following extensions installed:
-
-- [intl](http://php.net/manual/en/intl.requirements.php)
-- [libcurl](http://php.net/manual/en/curl.requirements.php) if you plan to use the HTTP\CURLRequest library
-
-Additionally, make sure that the following extensions are enabled in your PHP:
-
-- json (enabled by default - don't turn it off)
-- [mbstring](http://php.net/manual/en/mbstring.installation.php)
-- [mysqlnd](http://php.net/manual/en/mysqlnd.install.php)
-- xml (enabled by default - don't turn it off)
+* Crie um virtual host(de preferência com o nome de: t-max-test) no seu servidor local(localhost)\
+* Altere a linha 26 do arquivo: ./app/Config/App.php\ para -> public $baseURL = 'http://t-max-test';
+* Altere a linha 39 do arquivo: ./app/Config/App.php\ para -> public $indexPage = '';\
+* As credenciais do banco de dados estão no arquivo ./app/Config/Database.php e você deve alterar para as configurações do seu ambiente (HOST, NAME, USER e PASS).
