@@ -481,7 +481,6 @@ class Library extends BaseController
 
         $BooksModel = new \App\Models\BooksModel();
 
-        
         $BooksModel->update($id_book, $new_value);
 
         if($ReservModel->delete($id_reserv))

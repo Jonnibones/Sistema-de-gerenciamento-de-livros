@@ -6,7 +6,7 @@
   <?php endif;?>
 
   <div class="d-flex justify-content-center">
-    <div class="card" style="width: 30rem; margin-top:30px;">
+    <div class="card" style="width: 30rem; margin-top:140px; margin-bottom:20px;">
       <div class="card-body">
         <h1 class="card-title text-center">T-max Library</h1>
         <h4 class=" text-center">Login</h4>
