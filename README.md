@@ -58,7 +58,7 @@ CREATE TABLE IF NOT EXISTS `tb_users` (
 
 ## Configuração
 
-* Crie um virtual host(de preferência com o nome de: t-max-test) no seu servidor local(localhost)\
+* Crie um virtual host(de preferência com o nome de: t-max-test) no seu servidor local(localhost)
 * Altere a linha 26 do arquivo: ./app/Config/App.php\ para -> public $baseURL = 'http://t-max-test';
-* Altere a linha 39 do arquivo: ./app/Config/App.php\ para -> public $indexPage = '';\
+* Altere a linha 39 do arquivo: ./app/Config/App.php\ para -> public $indexPage = '';
 * As credenciais do banco de dados estão no arquivo ./app/Config/Database.php e você deve alterar para as configurações do seu ambiente (HOST, NAME, USER e PASS).
