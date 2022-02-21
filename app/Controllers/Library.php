@@ -4,11 +4,21 @@ namespace App\Controllers;
 
 class Library extends BaseController
 {
+    /**
+     * Método inicial para filtrar níveis de usuário e exibir dados
+     */
     public function index()
     {
-        $info['title'] = 'Minha área';
 
-        session();
+        $session = session();
+
+        if (!isset($_SESSION['logged']) || $_SESSION['logged'] === false) 
+        {
+            $session->setFlashdata('msg', 'Acesso restrito');
+            return redirect()->to('/login');
+        }
+         
+        $info['title'] = 'Minha área';
 
         $id = $_SESSION['id'];
 
@@ -41,10 +51,18 @@ class Library extends BaseController
         }
        
     }
-
+    /**
+     * Método responsável por listar todos os livros da tabela 
+     */
     public function listar_livros()
     {
-        session();
+        $session = session();
+
+        if (!isset($_SESSION['logged']) || $_SESSION['logged'] === false) 
+        {
+            $session->setFlashdata('msg', 'Acesso restrito');
+            return redirect()->to('/login');
+        }
 
         $BooksModel = new \App\Models\BooksModel();
 
@@ -54,10 +72,18 @@ class Library extends BaseController
         echo view('books_teacher_view', $info + $_SESSION);
 
     }
-
+    /**
+     * Método responsável por cadastrar um livro 
+     */
     public function cadastrar_livro()
     {
         $session = session();
+
+        if (!isset($_SESSION['logged']) || $_SESSION['logged'] === false) 
+        {
+            $session->setFlashdata('msg', 'Acesso restrito');
+            return redirect()->to('/login');
+        }
 
         $BooksModel = new \App\Models\BooksModel();
 
@@ -90,10 +116,19 @@ class Library extends BaseController
         }
 
     }
-
+    /**
+     * Método responsável por receber os dados passados através do iD passado via get
+     * E assim carregar os inputs para que possa ser realizado o update. 
+     */
     public function editar_livros()
     {
-        session();
+        $session = session();
+
+        if (!isset($_SESSION['logged']) || $_SESSION['logged'] === false) 
+        {
+            $session->setFlashdata('msg', 'Acesso restrito');
+            return redirect()->to('/login');
+        }
 
         $info['title'] = 'Minha área';
 
@@ -110,10 +145,18 @@ class Library extends BaseController
         echo view('books_teacher_view', $info + $_SESSION);
 
     }
-
+    /**
+     * Método responsável para editar os dados dos livros 
+     */
     public function edit_livros()
     {
         $session = session();
+
+        if (!isset($_SESSION['logged']) || $_SESSION['logged'] === false) 
+        {
+            $session->setFlashdata('msg', 'Acesso restrito');
+            return redirect()->to('/login');
+        }
 
         if($this->request->getPost() != null)
         {
@@ -138,11 +181,18 @@ class Library extends BaseController
         }
         return redirect()->to('/library');
     }
-
-
+    /**
+     * Método responsável por listar todos os alunos
+     */
     public function listar_alunos()
     {
-        session(); 
+        $session = session();
+
+        if (!isset($_SESSION['logged']) || $_SESSION['logged'] === false) 
+        {
+            $session->setFlashdata('msg', 'Acesso restrito');
+            return redirect()->to('/login');
+        } 
 
         $info['title'] = 'Lista de alunos';
         $UsersModel = new \App\Models\UsersModel();
@@ -152,10 +202,18 @@ class Library extends BaseController
 
         echo view('students_teacher_view', $info + $_SESSION);
     }
-
+    /**
+     * Método responsável por listar todos os livros
+     */
     public function listar_livro_aluno()
     {
         $session = session();
+
+        if (!isset($_SESSION['logged']) || $_SESSION['logged'] === false) 
+        {
+            $session->setFlashdata('msg', 'Acesso restrito');
+            return redirect()->to('/login');
+        }
 
         $info['title'] = 'Lista de livros';
 
@@ -167,12 +225,20 @@ class Library extends BaseController
 
         echo view('books_student_view', $info + $_SESSION);
     }
-
+      /**
+     * Método responsável por listar todos os livros
+     */
     public function listar_livro_professor()
     {
-        $info['title'] = 'Lista de livros';
+        $session = session();
 
-        session();
+        if (!isset($_SESSION['logged']) || $_SESSION['logged'] === false) 
+        {
+            $session->setFlashdata('msg', 'Acesso restrito');
+            return redirect()->to('/login');
+        }
+
+        $info['title'] = 'Lista de livros';
 
         $BooksModel = new \App\Models\BooksModel();
 
@@ -180,10 +246,18 @@ class Library extends BaseController
 
         echo view('bookslist_teacher_view', $info + $_SESSION);
     }
-
+      /**
+     * Método responsável por fazer a reserva de um livro
+     */
     public function reservar_livro()
     {
         $session = session();
+
+        if (!isset($_SESSION['logged']) || $_SESSION['logged'] === false) 
+        {
+            $session->setFlashdata('msg', 'Acesso restrito');
+            return redirect()->to('/login');
+        }
 
         $BooksModel = new \App\Models\BooksModel();
 
@@ -225,10 +299,19 @@ class Library extends BaseController
 
        
     }
-
+    /**
+     * Método responsável por receber os dados passados através do iD passado via get
+     * E assim carregar os inputs para que possa ser realizado o update. 
+     */
     public function editar()
     {
-        session();
+        $session = session();
+
+        if (!isset($_SESSION['logged']) || $_SESSION['logged'] === false) 
+        {
+            $session->setFlashdata('msg', 'Acesso restrito');
+            return redirect()->to('/login');
+        }
 
         $id = $_SESSION['id'];
 
@@ -256,10 +339,18 @@ class Library extends BaseController
         echo view('library_teacher_view', $info + $_SESSION);
 
     }
-
+    /**
+     * Método responsável por editar os dados dos professores
+     */
     public function edit()
     {
         $session = session();
+
+        if (!isset($_SESSION['logged']) || $_SESSION['logged'] === false) 
+        {
+            $session->setFlashdata('msg', 'Acesso restrito');
+            return redirect()->to('/login');
+        }
 
         if($this->request->getPost() != null)
         {
@@ -285,13 +376,30 @@ class Library extends BaseController
         }
         return redirect()->to('/library');
     }
-
-
-    ////////////////////////////////////////////////////////
-
+    /**
+     * Método responsável por receber os dados passados através do iD passado via get
+     * E assim carregar os inputs para que possa ser realizado o update. 
+     */
     public function editarAluno()
     {
-        session();
+        $session = session();
+
+        if (!isset($_SESSION['logged']) || $_SESSION['logged'] === false) 
+        {
+            $session->setFlashdata('msg', 'Acesso restrito');
+            return redirect()->to('/login');
+        }
+
+        $id = $_SESSION['id'];
+
+        $BooksModel = new \App\Models\BooksModel();
+
+        $reservs = $BooksModel->db->query("SELECT DISTINCT tb_books.id, tb_books.name, tb_books.pub_company, 
+        tb_reservation.id_reservation, tb_reservation.date FROM tb_reservation 
+        INNER JOIN tb_books on tb_books.id = tb_reservation.id_book 
+        INNER JOIN tb_users ON $id = tb_reservation.id_user ");
+
+        $info['reservs'] = $reservs->getResult('array');
 
         $info['title'] = 'Minha área';
 
@@ -306,10 +414,18 @@ class Library extends BaseController
         echo view('library_student_view', $info + $_SESSION);
 
     }
-
+    /**
+     * Método responsável por editar os dados dos alunos 
+     */
     public function editAluno()
     {
         $session = session();
+
+        if (!isset($_SESSION['logged']) || $_SESSION['logged'] === false) 
+        {
+            $session->setFlashdata('msg', 'Acesso restrito');
+            return redirect()->to('/login');
+        }
 
         if($this->request->getPost() != null)
         {
@@ -335,10 +451,18 @@ class Library extends BaseController
         }
         return redirect()->to('/library');
     }
-
+    /**
+     * Método responsável por deletar uma reserva
+     */
     public function deletar_reserva()
     {
         $session = session();
+
+        if (!isset($_SESSION['logged']) || $_SESSION['logged'] === false) 
+        {
+            $session->setFlashdata('msg', 'Acesso restrito');
+            return redirect()->to('/login');
+        }
 
         $info['title'] = 'Minha área';
 
@@ -367,10 +491,18 @@ class Library extends BaseController
         }
         
     }
-
+    /**
+     * Método responsável por deletar um livro 
+     */
     public function deletar_livros()
     {
         $session = session();
+
+        if (!isset($_SESSION['logged']) || $_SESSION['logged'] === false) 
+        {
+            $session->setFlashdata('msg', 'Acesso restrito');
+            return redirect()->to('/login');
+        }
 
         $info['title'] = 'Minha área';
 

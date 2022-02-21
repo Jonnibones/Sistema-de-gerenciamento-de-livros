@@ -3,10 +3,10 @@
 
     <?php echo view('template/navbar_teacher_view'); ?>
 
-    <div class="container">
+    <div style="padding:20px;" class="container">
 
-        <h2>Lista de alunos</h2>
-        <table id="tb_teacher" class="table table-striped">
+        <h1>Lista de alunos</h1>
+        <table id="tb_teacher_alunos" class="table table-striped">
             <thead>
                 <tr>
                     <th scope="col">#Mat Aluno</th>
@@ -16,6 +16,10 @@
                 </tr>
             </thead>
             <tbody>
+
+                <?php if(empty($alunos)) : ?>
+                    <h4>Nenhum aluno cadastrado.</h4>
+                <?php endif ; ?>
 
             <?php foreach($alunos as $row)
             {
@@ -31,5 +35,20 @@
             </tbody>
         </table>
     </div>
+
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
+
+    <script type="text/javascript" > 
+
+        $(document).ready( function () {
+            $('#tb_teacher_alunos').DataTable({
+                paging: false,
+                scrollY: 400
+            });
+            
+        } );
+        
+    </script>
 
 <?php echo view('template/footer'); ?>

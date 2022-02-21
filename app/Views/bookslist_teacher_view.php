@@ -2,15 +2,15 @@
 
     <?php echo view('template/navbar_teacher_view'); ?>
 
-        <div class="container">
+        <div style="padding: 20px;" class="container">
 
             <span hidden id="msg_sweet"><?php foreach(session()->getFlashdata() as $msghidden){ echo $msghidden; } ?></span> 
 
             <div class="text-left">
-                <h1>Catálogo de livros</h1>
+                <h1>Reservar livros</h1>
             </div>
 
-            <table id="tb_teacher" class="table table-striped">
+            <table id="tb_cat_books_teacher" class="table table-striped">
 
                 <thead>
                     <tr>
@@ -24,6 +24,10 @@
                 </thead>
 
                 <tbody>
+
+                    <?php if(empty($reservs)) : ?>
+                        <h4>Nenhuma reserva.</h4>
+                    <?php endif ; ?>
 
                     <?php foreach($books as $row)
                     {
@@ -55,8 +59,18 @@
 
     <script src="https://code.jquery.com/jquery-3.6.0.min.js" integrity="sha256-/xUj+3OJU5yExlq6GSYGSHk7tPXikynS7ogEvDej/m4=" crossorigin="anonymous"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.4/css/jquery.dataTables.css">
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.11.4/js/jquery.dataTables.js"></script>
 
     <script type="text/javascript" >
+
+        $(document).ready( function () {
+            $('#tb_cat_books_teacher').DataTable({
+                paging: false,
+                scrollY: 400
+            });
+            
+        } );
         
       var msg = document.getElementById('msg_sweet').textContent;
         if (msg == 'Reserva efetuada.') 
